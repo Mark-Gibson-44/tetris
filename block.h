@@ -10,8 +10,10 @@ class Block{
 	
 	coord positions[4];
 	int center;
-	Block()
+	int height;//point to init object
+	Block(int h)
 	{
+		height = h;
 
 	}
 	void rotateR()
@@ -39,20 +41,44 @@ class Block{
 			}	
 		}
 	}
+	void descend()
+	{
+		for(auto a : positions)
+		{
+			a.y--;
+		}
+	}
 };
 class L : public Block
 {
 	public:
-	L(){
+	L(int h): Block(h){
+		
 		positions[0].x = 0;
-		positions[0].y = 0;
+		positions[0].y = height;
 		positions[1].x = 0;
-		positions[1].y = 1;
+		positions[1].y = height - 1;
 		positions[2].x = 0;
-		positions[2].y = 2;
+		positions[2].y = height - 2;
 		positions[3].x = 0;
-		positions[3].y = 3;
+		positions[3].y = height - 3;
 		center = 1;
 		}
 
 };
+class S : public Block
+{
+	public:
+		S(int h): Block(h){
+			
+			positions[0].x = 0;
+			positions[0].y = height;
+			positions[1].x = 1;
+			positions[1].y = height;
+			positions[2].x = 1;
+			positions[2].y = height -1;
+			positions[3].x = 2;
+			positions[3].y = height - 1;
+		}
+};
+
