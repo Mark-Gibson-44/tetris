@@ -8,11 +8,12 @@ void play()
 	board b(10,10);
 	L l(9);
 	b.addBlock(l);
+	
 	while(true)
 	{
 		b.printBoard();
-		b.drop();
-		usleep(100000);
+		
+		usleep(1000000);
 		system("clear");
 	}
 }

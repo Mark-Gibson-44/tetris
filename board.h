@@ -21,6 +21,7 @@ class board
 				{
 					temp.push_back('I');
 					continue;
+					
 				}
 				if((i == 0 || i == height-1) || (j == 0) || (j == width -1))
 				{
@@ -57,13 +58,18 @@ class board
 			for(auto q: a.positions)
 			{
 				if(q.x == x && q.y == y)
+				{
+					
 					return true;
+			
+				}
 			}
 		}
 		return false;
 	}
 	void printBoard()
 	{
+		drop();
 		fillBoard();
 		for(auto i : play)
 		{
@@ -74,10 +80,14 @@ class board
 			std::cout << std::endl;
 		}
 
+
 	}
 	void drop()
 	{
-		for(auto a : pieces)
-			a.descend();
+		
+		for(int i = 0; i < pieces.size(); i++)
+		{
+			pieces[i].descend();
+		}
 	}
 };

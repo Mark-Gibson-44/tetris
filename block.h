@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 typedef struct{
 	int x;
 	int y;
@@ -41,12 +41,25 @@ class Block{
 			}	
 		}
 	}
+	bool bottom()
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			if(positions[i].y == 0)
+				return true;
+		}
+		return false;
+	}
 	void descend()
 	{
-		for(auto a : positions)
+		if(bottom())
+			return;	
+		for(int i = 0; i < 4; i++)
 		{
-			a.y--;
-		}
+			
+			this->positions[i].y = positions[i].y - 1;
+			
+		}	
 	}
 };
 class L : public Block
@@ -64,6 +77,7 @@ class L : public Block
 		positions[3].y = height - 3;
 		center = 1;
 		}
+	
 
 };
 class S : public Block
