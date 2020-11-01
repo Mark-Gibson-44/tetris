@@ -79,7 +79,8 @@ class board
 			}
 			std::cout << std::endl;
 		}
-
+		if(pieces[pieces.size()-1].bottom())
+			addBlock(S(9));
 
 	}
 	void drop()
@@ -90,4 +91,14 @@ class board
 			pieces[i].descend();
 		}
 	}
+	bool checkRow(int r)
+	{
+		int col;
+		for(int i = 0; i < width; i++)
+		{
+			if(blockHere(r,i))
+				col++;
+		}
+		return(col == width - 1);
+	}	
 };
