@@ -39,13 +39,17 @@ class board
 		}
 	}
 
-
+	
 	public:
 
 	board(int h, int w){
 		height = h;
 		width = w;
 		fillBoard();
+	}
+	bool blockBelow(int x, int y)
+	{
+		return blockHere(x,y-1);
 	}
 	void addBlock(Block b)
 	{
@@ -88,7 +92,11 @@ class board
 		
 		for(int i = 0; i < pieces.size(); i++)
 		{
-			pieces[i].descend();
+			for(int j = 0; j < 4; j++)
+			{
+				if(!blockBelow(pieces[i].positions[j].x,pieces[i].positions[j].y))
+					pieces[i].descend();
+			}
 		}
 	}
 	bool checkRow(int r)
