@@ -50,6 +50,7 @@ class Block{
 		}
 		return false;
 	}
+
 	void descend()
 	{
 		if(bottom())
