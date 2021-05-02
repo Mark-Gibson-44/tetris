@@ -2,92 +2,59 @@
 #include <vector>
 #include <unistd.h>
 #include <iostream>
-#include "block.h"
+
 
 class board
 {
-	int height, width;
-	std::vector<std::vector<char>> play;
-	std::vector<Block> pieces;
+	const int height, width;
+	std::vector<std::vector<int>> model;
+	
+	
 	void fillBoard()
 	{
-		play.clear();
-		for(int i = height - 1; i > -1; i--)
+		
+		for(int i = 0; i < height; i++)
 		{
-			std::vector<char> temp;
+			std::vector<int> temp;
 			for(int j = 0; j < width; j++)
 			{
-				if(blockHere(j,i))
+				/*if(blockAt(j,i))
 				{
-					temp.push_back('I');
+					temp.push_back(true);
 					continue;
 					
-				}
+				}*/
 				if((i == 0 || i == height-1) || (j == 0) || (j == width -1))
 				{
-					temp.push_back('X');
+					temp.emplace_back(1);
 				}
 				else
 				{
-					temp.push_back(' ');
+					temp.emplace_back(0);
 				}
 				
 
 			}
-			play.push_back(temp);
+			model.push_back(temp);
 			
 		}
 	}
-
-	
+	void updatePoint(int x, int y){
+		model[x][y] = 1;
+	}
+		
 	public:
 
-	board(int h, int w){
-		height = h;
-		width = w;
+	board(int h, int w): height(h), width(w){
 		fillBoard();
 	}
 	bool blockBelow(int x, int y)
 	{
-		return blockHere(x,y-1);
+		return blockAt(x,y-1);
 	}
-	void addBlock(Block b)
-	{
-		pieces.push_back(b);
-	}
-	bool blockHere(int x, int y)
-	{
-		for(auto a: pieces)
-		{
-			for(auto q: a.positions)
-			{
-				if(q.x == x && q.y == y)
-				{
-					
-					return true;
-			
-				}
-			}
-		}
-		return false;
-	}
-	void printBoard()
-	{
-		drop();
-		fillBoard();
-		for(auto i : play)
-		{
-			for(auto j: i)
-			{
-				std::cout << j;
-			}
-			std::cout << std::endl;
-		}
-		if(pieces[pieces.size()-1].bottom())
-			addBlock(S(9));
-
-	}
-	void drop()
+	
+	
+	/*void drop()
 	{
 		
 		for(int i = 0; i < pieces.size(); i++)
@@ -98,15 +65,33 @@ class board
 					pieces[i].descend();
 			}
 		}
-	}
+	}*/
+	bool blockAt(int x, int y){
+                return model[x][y];
+        }
+
 	bool checkRow(int r)
+	 
 	{
 		int col;
 		for(int i = 0; i < width; i++)
 		{
-			if(blockHere(r,i))
+			if(blockAt(r,i))
 				col++;
 		}
 		return(col == width - 1);
+	}
+	void clearRow(int r){
+		for(int i = r; i < height - 1; i++){
+			for(int j = 0; j < width; j++){
+				model[i][j] = model[i+1][j];
+			}
+		}
+	}
+	const int& getHeight(){
+		return height;
+	}
+	const int& getWidth(){
+		return width;
 	}	
 };

@@ -4,4 +4,4 @@ project(Tetris)
 
 include_directories(${Project_source_dir})
 
-add_executable(Game main.cpp board.h block.h)
+add_executable(Game main.cpp control.cpp board.h block.h)

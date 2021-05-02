@@ -1,9 +1,8 @@
 #include <iostream>
 #include <vector>
 
-#include "block.h"
-#include "board.h"
-
+#include "control.h"
+/*
 void play()
 {
 	board b(10,10);
@@ -19,8 +18,9 @@ void play()
 		system("clear");
 	}
 }
-
+*/
 int main()
 {	
-	play();
+	controller a(board(10,20));
+	a.play();
 }
